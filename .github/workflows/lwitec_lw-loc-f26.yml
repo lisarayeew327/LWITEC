@@ -1,0 +1,24 @@
+name: Build and deploy HTML site to Azure Web App - LW-LOC-F26
+
+on:
+  push:
+    branches:
+      - LWITEC
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'LW-LOC-F26'
+          slot-name: 'Production'
+          package: .
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9DC224FA48814EFFAC5752584B564BB2 }}
